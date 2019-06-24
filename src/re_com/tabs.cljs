@@ -36,10 +36,11 @@
              label     (label-fn  t)
              selected? (= id current)]                   ;; must use current instead of @model to avoid reagent warnings
          [:li
-          {:class (if selected? "active")
+          {:class (str "nav-item ")
            :key   (str id)}
           [:a
-           {:style    (merge {:cursor "pointer"}
+           {:class (str "nav-link "  (if selected? "active"))
+            :style    (merge {:cursor "pointer"}
                              style)
             :on-click (when on-change (handler-fn (on-change id)))}
            label]]))]))

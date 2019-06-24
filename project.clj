@@ -4,7 +4,7 @@
 
 ;; ---------------------------------------------------------------------------------------
 
-(defproject         re-com "2.6.0-SNAPSHOT"
+(defproject         re-com "2.6.1-SNAPSHOT"
   :description      "Reusable UI components for Reagent"
   :url              "https://github.com/Day8/re-com.git"
   :license          {:name "MIT"}
@@ -141,4 +141,3 @@
                      "test-auto"  ["with-profile" "+dev-test" "do"
                                    ["test-once"]
                                    ["cljsbuild" "auto" "test"]]})
-
