@@ -247,7 +247,7 @@
     :class     "noselect input-group mb-3"
     :min-width "10em"
     :max-width "10em"
-    :children  [[:label {:class "form-control dropdown-button"}
+    :children  [[:label {:class "form-control dropdown-button rc-relative-wrapper"}
                  (if (date-like? (deref-or-value model))
                    (unparse (if (seq format) (formatter format) date-format) (deref-or-value model))
                    [:span {:style {:color "#bbb"}} placeholder])]]]])
