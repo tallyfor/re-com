@@ -245,8 +245,8 @@
    [h-box
     :align     :center
     :class     "noselect input-group mb-3"
-    :min-width "15em"
-    :max-width "15em"
+    :min-width "10em"
+    :max-width "10em"
     :children  [[:label {:class "form-control dropdown-button"}
                  (if (date-like? (deref-or-value model))
                    (unparse (if (seq format) (formatter format) date-format) (deref-or-value model))
