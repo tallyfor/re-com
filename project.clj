@@ -4,7 +4,7 @@
 
 ;; ---------------------------------------------------------------------------------------
 
-(defproject         re-com "lein-git-inject/version"
+(defproject         re-com "2.6.2-SNAPSHOT"
   :description      "Reusable UI components for Reagent"
   :url              "https://github.com/day8/re-com.git"
   :license          {:name "MIT"}
@@ -111,4 +111,3 @@
 
                      "test-auto"  ["with-profile" "+dev-test" "do"
                                     ["shadow" "watch" "browser-test"]]})
-

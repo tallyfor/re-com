@@ -86,10 +86,10 @@
          :label    "Previous"
          :on-click (handler-fn (prev-tour-step tour))
          :style    {:margin-right "15px"}
-         :class     "btn-default"])
+         :class     "btn-outline-secondary"])
       [button
        :label    (if on-last-button "Finish" "Next")
        :on-click (handler-fn (if on-last-button
                                (finish-tour tour)
                                (next-tour-step tour)))
-       :class     "btn-default"]]))
+       :class     "btn-outline-secondary"]]))

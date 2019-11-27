@@ -47,7 +47,7 @@
   ([pred date period]
    (if (pred date)
     date
-   (recur pred (minus date period) period))))
+    (recur pred (minus date period) period))))
 
 (defn- =date [date1 date2]
   (and
@@ -98,7 +98,7 @@
                            ;; override position from css because we are inline
                            :style (merge {:font-size "13px"
                                           :position  "static"}
-                                          style)}
+                                         style)}
                           attr)
                         table-div]]]])
 
@@ -235,7 +235,7 @@
          style
          attr]))))
 
-
+; Tallyfor mod for dropdown picker. Bootstrap 4 and move icon inside form.
 (defn- anchor-button
   "Provide clickable field with current date label and dropdown button e.g. [ 2014 Sep 17 | # ]"
   [shown? model format placeholder]
@@ -244,16 +244,16 @@
          :on-click (handler-fn (swap! shown? not))}
    [h-box
     :align     :center
-    :class     "noselect"
-    :min-width "10em"
-    :max-width "10em"
+    :class     "noselect input-group mb-3"
+    :min-width "15em"
+    :max-width "15em"
     :children  [[:label {:class "form-control dropdown-button"}
                  (if (date-like? (deref-or-value model))
                    (unparse (if (seq format) (formatter format) date-format) (deref-or-value model))
-                   [:span {:style {:color "#bbb"}} placeholder])]
-                [:span.dropdown-button.activator.input-group-addon
-                 {:style {:padding "3px 0px 0px 0px"}}
-                 [:i.zmdi.zmdi-apps {:style {:font-size "24px"}}]]]]])
+                   [:span {:style {:color "#bbb"}} placeholder])]]]])
+              ;  [:span.dropdown-button.activator.input-group-addon
+              ;   {:style {:padding "3px 0px 0px 0px"}}
+              ;   [:i.zmdi.zmdi-apps {:style {:font-size "24px"}}]]]]])
 
 (def datepicker-dropdown-args-desc
   (conj datepicker-args-desc

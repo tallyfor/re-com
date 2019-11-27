@@ -36,10 +36,11 @@
              label     (label-fn  t)
              selected? (= id current)]                   ;; must use current instead of @model to avoid reagent warnings
          [:li
-          {:class (if selected? "active")
+          {:class    "nav-item"
            :key   (str id)}
           [:a
-           {:style    (merge {:cursor "pointer"}
+           {:class    (if selected? "nav-link active" "nav-link")
+            :style    (merge {:cursor "pointer"}
                              style)
             :on-click (when on-change (handler-fn (on-change id)))}
            label]]))]))
@@ -65,7 +66,7 @@
          [:button
           {:type     "button"
            :key      (str id)
-           :class    (str "btn btn-default "  (if selected? "active"))
+           :class    (str "btn btn-outline-secondary "  (if selected? "active"))
            :style    style
            :on-click (when on-change (handler-fn (on-change id)))}
           label]))]))
@@ -123,10 +124,11 @@
              label     (label-fn  t)
              selected? (= id current)]                   ;; must use 'current' instead of @model to avoid reagent warnings
          [:li
-          {:class    (if selected? "active" "")
+          {:class    "nav-item"
            :key      (str id)}
           [:a
-           {:style     (merge {:cursor "pointer"}
+           {:class    (if selected? "nav-link active" "nav-link")
+            :style     (merge {:cursor "pointer"}
                               style)
             :on-click  (when on-change (handler-fn (on-change id)))}
            label]]))]))
