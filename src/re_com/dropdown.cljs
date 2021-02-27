@@ -162,25 +162,25 @@
   []
   (let [ignore-click (atom false)]
     (fn
-      [internal-model choices id-fn label-fn tab-index placeholder dropdown-click key-handler filter-box? drop-showing? title?]
+      [internal-model choices id-fn render-fn tab-index placeholder dropdown-click key-handler filter-box? drop-showing? title?]
       (let [_    (reagent/set-state (reagent/current-component) {:filter-box? filter-box?})
             text (if @internal-model
-                   (label-fn (item-for-id @internal-model choices :id-fn id-fn))
+                   (render-fn (item-for-id @internal-model choices :id-fn id-fn))
                    placeholder)]
         [:a.chosen-single.chosen-default
-         {:href          "javascript:"   ;; Required to make this anchor appear in the tab order
-          :tab-index     tab-index
-          :on-click      (handler-fn
-                           (if @ignore-click
-                             (reset! ignore-click false)
-                             (dropdown-click)))
-          :on-mouse-down (handler-fn
-                           (when @drop-showing?
-                             (reset! ignore-click true)))   ;; TODO: Hmmm, have a look at calling preventDefault (and stopProp?) and removing the ignore-click stuff
-          :on-key-down   (handler-fn
-                           (key-handler event)
-                           (when (= (.-which event) 13)     ;; Pressing enter on an anchor also triggers click event, which we don't want
-                             (reset! ignore-click true)))}  ;; TODO: Hmmm, have a look at calling preventDefault (and stopProp?) and removing the ignore-click stuff
+         {:href                                                                                                                                                                                                                                                                                  "javascript:" ;; Required to make this anchor appear in the tab order
+          :tab-index                                                                                                                                                                                                                                                                             tab-index
+          :on-click                                                                                                                                                                                                                                                                              (handler-fn
+                                                                                                                                                                                                                                                                                                   (if @ignore-click
+                                                                                                                                                                                                                                                                                                     (reset! ignore-click false)
+                                                                                                                                                                                                                                                                                                     (dropdown-click)))
+          :on-mouse-down                                                                                                                                                                                                                                                                         (handler-fn
+                                                                                                                                                                                                                                                                                                   (when @drop-showing?
+                                                                                                                                                                                                                                                                                                     (reset! ignore-click true))) ;; TODO: Hmmm, have a look at calling preventDefault (and stopProp?) and removing the ignore-click stuff
+          :on-key-down                                                                                                                                                                                                                                                                           (handler-fn
+                                                                                                                                                                                                                                                                                                   (key-handler event)
+                                                                                                                                                                                                                                                                                                   (when (= (.-which event) 13)     ;; Pressing enter on an anchor also triggers click event, which we don't want
+                                                                                                                                                                                                                                                                                                     (reset! ignore-click true)))}  ;; TODO: Hmmm, have a look at calling preventDefault (and stopProp?) and removing the ignore-click stuff
          [:span (when title?
                   {:title text})
           text]
@@ -254,30 +254,30 @@
       {:id \"GB\" :label \"United Kingdom\" :group \"Group 1\"}
       {:id \"AF\" :label \"Afghanistan\"    :group \"Group 2\"}]"
   [& {:keys [choices model regex-filter? debounce-delay]
-      :or {debounce-delay 250}
-      :as args}]
+      :or   {debounce-delay 250}
+      :as   args}]
   {:pre [(validate-args-macro single-dropdown-args-desc args "single-dropdown")]}
-  (let [external-model (reagent/atom (deref-or-value model))  ;; Holds the last known external value of model, to detect external model changes
-        internal-model (reagent/atom @external-model)         ;; Create a new atom from the model to be used internally
-        drop-showing?  (reagent/atom false)
-        filter-text    (reagent/atom "")
-        choices-fn?    (fn? choices)
-        choices-state (reagent/atom {:loading? choices-fn?
-                                     ; loading error
-                                     :error nil
-                                     :choices []
-                                     ; request id to ignore handling response when new request was already made
-                                     :id 0
-                                     ; to debounce requests
-                                     :timer nil})
-        load-choices (partial load-choices choices-state choices debounce-delay)
+  (let [external-model  (reagent/atom (deref-or-value model)) ;; Holds the last known external value of model, to detect external model changes
+        internal-model  (reagent/atom @external-model)        ;; Create a new atom from the model to be used internally
+        drop-showing?   (reagent/atom false)
+        filter-text     (reagent/atom "")
+        choices-fn?     (fn? choices)
+        choices-state   (reagent/atom {:loading? choices-fn?
+                                        ; loading error
+                                       :error    nil
+                                       :choices  []
+                                        ; request id to ignore handling response when new request was already made
+                                       :id       0
+                                        ; to debounce requests
+                                       :timer    nil})
+        load-choices    (partial load-choices choices-state choices debounce-delay)
         set-filter-text (fn [text {:keys [regex-filter?] :as args} debounce?]
                           (load-choices text regex-filter? debounce?)
                           (reset! filter-text text))]
     (load-choices "" regex-filter? false)
     (fn [& {:keys [choices model on-change id-fn label-fn group-fn render-fn disabled? filter-box? regex-filter? placeholder title? width max-height tab-index debounce-delay class style attr]
-            :or {id-fn :id label-fn :label group-fn :group render-fn label-fn}
-            :as args}]
+            :or   {id-fn :id label-fn :label group-fn :group render-fn label-fn}
+            :as   args}]
       {:pre [(validate-args-macro single-dropdown-args-desc args "single-dropdown")]}
       (let [choices          (if choices-fn? (:choices @choices-state) (deref-or-value choices))
             disabled?        (deref-or-value disabled?)
@@ -288,17 +288,17 @@
                                (reset! internal-model @latest-ext-model))
             changeable?      (and on-change (not disabled?))
             callback         #(do
-                               (reset! internal-model %)
-                               (when (and changeable? (not= @internal-model @latest-ext-model))
-                                 (on-change @internal-model))
-                               (swap! drop-showing? not) ;; toggle to allow opening dropdown on Enter key
-                               (set-filter-text "" args false))
+                                (reset! internal-model %)
+                                (when (and changeable? (not= @internal-model @latest-ext-model))
+                                  (on-change @internal-model))
+                                (swap! drop-showing? not) ;; toggle to allow opening dropdown on Enter key
+                                (set-filter-text "" args false))
             cancel           #(do
-                               (reset! drop-showing? false)
-                               (set-filter-text "" args false)
-                               (reset! internal-model @external-model))
+                                (reset! drop-showing? false)
+                                (set-filter-text "" args false)
+                                (reset! internal-model @external-model))
             dropdown-click   #(when-not disabled?
-                               (swap! drop-showing? not))
+                                (swap! drop-showing? not))
             filtered-choices (if choices-fn?
                                choices
                                (if regex-filter?
@@ -309,45 +309,45 @@
                                  (cancel)
                                  (callback @internal-model))
                                true)
-            press-escape      (fn []
-                                (cancel)
-                                true)
-            press-tab         (fn []
-                                (if disabled?
-                                  (cancel)
-                                  (do  ;; Was (callback @internal-model) but needed a customised version
-                                    (when changeable? (on-change @internal-model))
-                                    (reset! drop-showing? false)
-                                    (set-filter-text "" args false)))
-                                (reset! drop-showing? false)
-                                true)
-            press-up          (fn []
-                                (if @drop-showing?  ;; Up arrow
-                                  (reset! internal-model (move-to-new-choice filtered-choices id-fn @internal-model -1))
-                                  (reset! drop-showing? true))
-                                true)
-            press-down        (fn []
-                                (if @drop-showing?  ;; Down arrow
-                                  (reset! internal-model (move-to-new-choice filtered-choices id-fn @internal-model 1))
-                                  (reset! drop-showing? true))
-                                true)
-            press-home        (fn []
-                                (reset! internal-model (move-to-new-choice filtered-choices id-fn @internal-model :start))
-                                true)
-            press-end         (fn []
-                                (reset! internal-model (move-to-new-choice filtered-choices id-fn @internal-model :end))
-                                true)
+            press-escape     (fn []
+                               (cancel)
+                               true)
+            press-tab        (fn []
+                               (if disabled?
+                                 (cancel)
+                                 (do  ;; Was (callback @internal-model) but needed a customised version
+                                   (when changeable? (on-change @internal-model))
+                                   (reset! drop-showing? false)
+                                   (set-filter-text "" args false)))
+                               (reset! drop-showing? false)
+                               true)
+            press-up         (fn []
+                               (if @drop-showing?  ;; Up arrow
+                                 (reset! internal-model (move-to-new-choice filtered-choices id-fn @internal-model -1))
+                                 (reset! drop-showing? true))
+                               true)
+            press-down       (fn []
+                               (if @drop-showing?  ;; Down arrow
+                                 (reset! internal-model (move-to-new-choice filtered-choices id-fn @internal-model 1))
+                                 (reset! drop-showing? true))
+                               true)
+            press-home       (fn []
+                               (reset! internal-model (move-to-new-choice filtered-choices id-fn @internal-model :start))
+                               true)
+            press-end        (fn []
+                               (reset! internal-model (move-to-new-choice filtered-choices id-fn @internal-model :end))
+                               true)
             key-handler      #(if disabled?
-                               false
-                               (case (.-which %)
-                                 13 (press-enter)
-                                 27 (press-escape)
-                                 9  (press-tab)
-                                 38 (press-up)
-                                 40 (press-down)
-                                 36 (press-home)
-                                 35 (press-end)
-                                 filter-box?))]  ;; Use this boolean to allow/prevent the key from being processed by the text box
+                                false
+                                (case (.-which %)
+                                  13 (press-enter)
+                                  27 (press-escape)
+                                  9  (press-tab)
+                                  38 (press-up)
+                                  40 (press-down)
+                                  36 (press-home)
+                                  35 (press-end)
+                                  filter-box?))]  ;; Use this boolean to allow/prevent the key from being processed by the text box
         [:div
          (merge
            {:class (str "rc-dropdown chosen-container chosen-container-single noselect " (when @drop-showing? "chosen-container-active chosen-with-drop ") class)
@@ -356,7 +356,7 @@
                           {:width width}
                           style)}
            attr)          ;; Prevent user text selection
-         [dropdown-top internal-model choices id-fn label-fn tab-index placeholder dropdown-click key-handler filter-box? drop-showing? title?]
+         [dropdown-top internal-model choices id-fn render-fn tab-index placeholder dropdown-click key-handler filter-box? drop-showing? title?]
          (when (and @drop-showing? (not disabled?))
            [:div.chosen-drop
             [filter-text-box filter-box? filter-text key-handler drop-showing? #(set-filter-text % args true)]
