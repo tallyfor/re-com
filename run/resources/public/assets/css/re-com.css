@@ -37,7 +37,15 @@ html, body {
     font-family: Segoe UI, Roboto, sans-serif;
 }
 
+/* fixed for bootstrap 4 */
+
 .popover-title {
+    padding: 8px 14px;
+    margin: 0;
+    font-size: 14px;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ebebeb;
+    border-radius: 5px 5px 0 0;
     font-weight: normal;
 }
 
@@ -476,13 +484,7 @@ html, body {
   padding: 4px 5px 4px 20px;
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 144dpi) {
-  .chosen-rtl .chosen-search input[type="text"],
-  .chosen-container-single .chosen-single abbr,
-  .chosen-container-single .chosen-single div b,
-  .chosen-container-single .chosen-search input[type="text"],
-  .chosen-container-multi .chosen-choices .search-choice .search-choice-close,
-  .chosen-container .chosen-results-scroll-down span,
-  .chosen-container .chosen-results-scroll-up span {
+    .chosen-container .chosen-results-scroll-up span {
     background-image: url("chosen-sprite@2x.png") !important;
     background-size: 52px 37px !important;
     background-repeat: no-repeat !important;
@@ -698,7 +700,7 @@ html, body {
 .dropdown-button.activator {
     width: 40px;
     color: #777;
-    background-color: #F7F7F7
+     
 }
 
 /*----------------------------------------------------------------------------------------
@@ -1166,6 +1168,11 @@ code {
     fill:  #2962ff;
 }
 
+/* fixed for bootstrap 4 */
+.popover-content {
+    padding: 9px 14px;
+}
+
 .popover-content .info-heading {
     font-size: 22px;
 }
@@ -1199,7 +1206,7 @@ code {
 
 .rc-row-button {
     text-align:          center;             /* to horizontally center the icon */
-    color:               #2167f2; /2196f3;
+    color:               #2167f2; 
     background-color:    inherit;
     opacity:             0;
     cursor:              pointer;

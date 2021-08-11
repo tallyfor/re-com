@@ -10,10 +10,7 @@
             [reagent.ratom   :refer-macros [reaction]]))
 
 
-(def h-box-style  {;:background-color "yellow"
-                   ;:padding          "4px"
-                   ;:overflow         "hidden"
-                   })
+(def h-box-style  {})
 
 (def panel-style  (merge (flex-child-style "1")
                          {:background-color "#fff4f4"

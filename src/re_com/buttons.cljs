@@ -27,7 +27,7 @@
   (let [showing? (reagent/atom false)]
     (fn
       [& {:keys [label on-click tooltip tooltip-position disabled? class style attr]
-          :or   {class "btn-default"}
+          :or   {class "btn-outline-secondary"}
           :as   args}]
       {:pre [(validate-args-macro button-args-desc args "button")]}
       (when-not tooltip (reset! showing? false)) ;; To prevent tooltip from still showing after button drag/drop

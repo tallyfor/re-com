@@ -162,10 +162,10 @@
   []
   (let [ignore-click (atom false)]
     (fn
-      [internal-model choices id-fn label-fn tab-index placeholder dropdown-click key-handler filter-box? drop-showing? title?]
+      [internal-model choices id-fn render-fn tab-index placeholder dropdown-click key-handler filter-box? drop-showing? title?]
       (let [_    (reagent/set-state (reagent/current-component) {:filter-box? filter-box?})
             text (if @internal-model
-                   (label-fn (item-for-id @internal-model choices :id-fn id-fn))
+                   (render-fn (item-for-id @internal-model choices :id-fn id-fn))
                    placeholder)]
         [:a.chosen-single.chosen-default
          {:href          "javascript:"   ;; Required to make this anchor appear in the tab order

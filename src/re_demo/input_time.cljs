@@ -76,11 +76,11 @@
                                            :align :center
                                            :children [[button
                                                        :label    "11am"
-                                                       :class    "btn btn-default"
+                                                       :class    "btn btn-outline-secondary"
                                                        :on-click #(reset! an-int-time 1100)]
                                                       [button
                                                        :label    "5pm"
-                                                       :class    "btn btn-default"
+                                                       :class    "btn btn-outline-secondary"
                                                        :on-click #(reset! an-int-time 1700)]]]
                                           [gap :size "20px"]
                                           [title :level :level3 :label "Simulated minimum & maximum changes"]
