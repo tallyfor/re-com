@@ -64,13 +64,13 @@
                selected? (= id current)]                   ;; must use current instead of @model to avoid reagent warnings
            [:li
             (merge
-              {:class (str (if selected? "active rc-tab ") (get-in parts [:tab :class]))
+              {:class (str "nav-item" (get-in parts [:tab :class]))
                :style (get-in parts [:tab :style])
                :key   (str id)}
               (get-in parts [:tab :attr]))
             [:a
              (merge
-               {:class    (str "rc-tab-anchor " (get-in parts [:anchor :class]))
+               {:class    (str (if selected? "nav-link active" "nav-link") (get-in parts [:anchor :class]))
                 :style    (merge {:cursor "pointer"}
                                  style)
                 :on-click (when on-change (handler-fn (on-change id)))}
@@ -128,7 +128,7 @@
                              (merge
                                {:type     "button"
                                 :key      (str id)
-                                :class    (str "btn btn-default " (if selected? "active ") "rc-tabs-btn " (get-in parts [:button :class]))
+                                :class    (str "btn btn-outline-secondary " (if selected? "active ") "rc-tabs-btn " (get-in parts [:button :class]))
                                 :style    style
                                 :on-click (when on-change (handler-fn (on-change id)))}
                                (when tooltip
@@ -238,12 +238,13 @@
              selected? (= id current)]                   ;; must use 'current' instead of @model to avoid reagent warnings
          [:li
           (merge
-            {:class    (str "rc-tabs-pill " (if selected? "active " "") (get-in parts [:tab :class]))
+            {:class    "nav-item"
              :style    (get-in parts [:tab :style])
              :key      (str id)}
             (get-in parts [:tab :attr]))
           [:a
-           (merge
+           (:class (if selected? "nav-link active" "nav-link")
+            merge
              {:class     (str "rc-tabs-anchor " (get-in parts [:anchor :class]))
               :style     (merge {:cursor "pointer"}
                                 style)

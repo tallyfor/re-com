@@ -93,7 +93,7 @@
                                            :src  (at)
                                            :size "20px"]
 
-                                          [p "The two buttons above are styled using Bootstrap. For the " [:code ":class"] " parameter, we passed in the name of a standard Bootstrap class, like \"btn-default\"."]
+                                          [p "The two buttons above are styled using Bootstrap. For the " [:code ":class"] " parameter, we passed in the name of a standard Bootstrap class, like \"btn-outline-secondary\"."]
                                           [p "But the button below was created by supplying inline styles via the " [:code ":style"] " and " [:code ":attr"] " parameters. To see the code, click the \"Page Source\" hyperlink at the top."]
                                           [button
                                            :src       (at)

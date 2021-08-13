@@ -565,6 +565,7 @@
              (or debug-as (reflect-current-component))]))))))
 
 
+; Tallyfor mod for dropdown picker. Bootstrap 4 and move icon inside form.
 (defn- anchor-button
   "Provide clickable field with current date label and dropdown button e.g. [ 2014 Sep 17 | # ]"
   [shown? model format goog? placeholder width disabled?]
@@ -575,19 +576,11 @@
                        (swap! shown? not)))}
    [h-box
     :align     :center
-    :class     "noselect"
+    :class     "noselect input-group mb-3"
     :min-width (when-not width "10em")
     :max-width (when-not width "10em")
     :width     width
-    :children  [[:label {:disabled (deref-or-value disabled?)
-                         :class    (str "form-control dropdown-button" (when (deref-or-value disabled?) " dropdown-button-disabled"))}
-                 (cond (not (date-like? (deref-or-value model))) [:span {:style {:color "#bbb"}} placeholder]
-                       goog?                                     (.format (DateTimeFormat. (if (seq format) format date-format-str)) (deref-or-value model))
-                       :else                                     (unparse (if (seq format) (formatter format) date-format) (deref-or-value model)))]
-                [:span
-                 {:class (str "dropdown-button activator input-group-addon" (when (deref-or-value disabled?) " dropdown-button-disabled"))
-                  :style {:padding "3px 0px 0px 0px"}}
-                 [:i.zmdi.zmdi-apps {:style {:font-size "24px"}}]]]]])
+    :children  [[:label {:disabled (deref-or-value disabled?), :class (str "form-control dropdown-button rc-relative-wrapper" (when (deref-or-value disabled?) " dropdown-button-disabled"))} (cond (not (date-like? (deref-or-value model))) [:span {:style {:color "#bbb"}} placeholder] goog? (.format (DateTimeFormat. (if (seq format) format date-format-str)) (deref-or-value model)) :else (unparse (if (seq format) (formatter format) date-format) (deref-or-value model)))]]]])
 
 (def datepicker-dropdown-args-desc
   (when include-args-desc?

@@ -191,7 +191,7 @@
                                                               (reset! model1 (plus @model1 (days 1))))]
                                             [button :src (at)
                                              :label    "Reset"
-                                             :class    "btn btn-default"
+                                             :class    "btn btn-outline-secondary"
                                              :style    {:padding  "1px 4px"}
                                              :on-click #(reset! model1 nil)]]]]]
                   enabled-days

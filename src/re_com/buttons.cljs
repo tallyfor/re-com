@@ -45,7 +45,7 @@
   (let [showing? (reagent/atom false)]
     (fn
       [& {:keys [label on-click tooltip tooltip-position disabled? class style attr parts src debug-as]
-          :or   {class "btn-default"}
+          :or   {class "btn-outline-secondary"}
           :as   args}]
       (or
         (validate-args-macro button-args-desc args)

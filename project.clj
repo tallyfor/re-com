@@ -4,7 +4,7 @@
 
 ;; ---------------------------------------------------------------------------------------
 
-(defproject         re-com "lein-git-inject/version"
+(defproject         re-com (str "lein-git-inject/version" "-TALLYFOR")
   :description      "Reusable UI components for Reagent"
   :url              "https://github.com/day8/re-com.git"
   :license          {:name "MIT"}
@@ -30,14 +30,19 @@
 
   :antq     {}
 
-  :profiles {:dev      {:source-paths ["dev-src"]
-                        :dependencies [[clj-stacktrace        "0.2.8"]
-                                       [binaryage/devtools    "1.0.3"]]
-                        :plugins      [[org.clojure/data.json "2.4.0"]]}
+  :profiles {:dev      {:dependencies [[clj-stacktrace "0.2.8"]
+                                               [binaryage/devtools "0.9.10"]]
+                              :plugins      [[lein-shell "0.5.0"]
+                                             [org.clojure/data.json "0.2.6"]
+                                             [lein-ancient "0.6.15"]]}
+                   :demo     {:dependencies [[alandipert/storage-atom "2.0.1"]
+                                             [com.cognitect/transit-cljs "0.8.256"] ;; Overrides version in storage-atom which prevents compiler warnings about uuid? and boolean? being replaced
+                                             [clj-commons/secretary "1.2.4"]]}
+                   :dev-run  {:source-paths  ["dev-src"]}
+                   :prod-run {}
+                   :dev-test {:source-paths  ["dev-src"]}}
 
-             :demo     {:dependencies [[alandipert/storage-atom "2.0.1"]
-                                       [com.cognitect/transit-cljs "0.8.264"] ;; Overrides version in storage-atom which prevents compiler warnings about uuid? and boolean? being replaced
-                                       [clj-commons/secretary "1.2.4"]]}}
+  
 
   :source-paths    ["src"]
   :test-paths      ["test"]
@@ -53,7 +58,7 @@
   :deploy-repositories [["clojars"  {:sign-releases false
                                      :url "https://clojars.org/repo"
                                      :username :env/CLOJARS_USERNAME
-                                     :password :env/CLOJARS_TOKEN}]]
+                                     :password :env/CLOJARS_PASSWORD}]]
 
   ;; Exclude the demo and compiled files from the output of either 'lein jar' or 'lein install'
   :jar-exclusions   [#"(?:^|\/)re_demo\/" #"(?:^|\/)demo\/" #"(?:^|\/)compiled.*\/" #"html$"]
