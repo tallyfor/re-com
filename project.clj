@@ -4,7 +4,7 @@
 
 ;; ---------------------------------------------------------------------------------------
 
-(defproject         re-com (str "lein-git-inject/version" "-TALLYFOR")
+(defproject         re-com "2.13.2-106-180ea1f-SNAPSHOT-TALLYFOR"
   :description      "Reusable UI components for Reagent"
   :url              "https://github.com/day8/re-com.git"
   :license          {:name "MIT"}
