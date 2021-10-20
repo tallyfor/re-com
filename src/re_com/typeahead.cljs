@@ -174,15 +174,6 @@
       (assoc :external-model new-value)
       clear-suggestions))
 
-(defn- external-model-changed
-  "Update state when the external model value has changed."
-  [state new-value]
-  (-> state
-      (update-model new-value)
-      (display-suggestion new-value)
-      (assoc :external-model new-value)
-      clear-suggestions))
-
 ;; ------------------------------------------------------------------------------------
 ;; Functions with side-effects
 ;; ------------------------------------------------------------------------------------

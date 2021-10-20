@@ -243,8 +243,7 @@
              :key      (str id)}
             (get-in parts [:tab :attr]))
           [:a
-           (:class (if selected? "nav-link active" "nav-link")
-            merge
+           (merge
              {:class     (str "rc-tabs-anchor " (get-in parts [:anchor :class]))
               :style     (merge {:cursor "pointer"}
                                 style)
