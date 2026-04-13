@@ -1,3 +1,5 @@
+> **Archived.** This repo has been migrated into the [tallyfor/balance](https://github.com/tallyfor/balance) monorepo at [`components/re-com`](https://github.com/tallyfor/balance/tree/main/components/re-com). All future development happens there.
+
 <!--  [![CI](https://github.com/day8/re-com/workflows/ci/badge.svg)](https://github.com/day8/re-com/actions?workflow=ci)
 [![CD](https://github.com/day8/re-com/workflows/cd/badge.svg)](https://github.com/day8/re-com/actions?workflow=cd)
 [![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/day8/re-com?style=for-the-badge)](https://github.com/day8/re-com/tags) -->
@@ -203,4 +205,3 @@ details on creating issues and pull requests.
 Copyright © 2015-2021 Michael Thompson
 
 Distributed under The MIT License (MIT) - See LICENSE.txt
-
